@@ -1,0 +1,230 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>John Perrine Films</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a projection-booth page. Letterboxed 2.39:1 title band, one large feature frame, three supporting frames, then a quiet about/contact block. */
+:root {
+  --ink: #0b0d12;        /* booth black, faint blue bias */
+  --ink-2: #12151c;      /* raised surface */
+  --line: #232833;       /* hairlines */
+  --paper: #ece6d6;      /* warm projected white */
+  --dim: #8d93a1;        /* secondary text */
+  --lamp: #e7b04a;       /* tungsten accent */
+  --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--lamp); outline-offset: 3px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+
+/* top bar */
+.bar { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; padding-block: 20px; border-bottom: 1px solid var(--line); }
+.bar .mark { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.bar nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.bar nav a { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--paper); }
+.bar nav a:hover { color: var(--lamp); }
+
+/* title band */
+.band { padding-block: 56px 40px; }
+.slate { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 20px; }
+.slate b { color: var(--lamp); font-weight: 500; }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(64px, 15vw, 190px); line-height: .86; letter-spacing: -.01em; text-transform: uppercase; margin: 0; text-wrap: balance; }
+h1 span { color: var(--lamp); }
+.tag { max-width: 52ch; font-size: 19px; color: var(--paper); margin: 28px 0 0; }
+.tag em { font-style: normal; color: var(--dim); }
+
+/* work */
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 5vw, 48px); text-transform: uppercase; letter-spacing: .02em; line-height: 1; margin: 0; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-block: 32px 20px; border-top: 1px solid var(--line); }
+.head p { margin: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+
+.frame { display: block; text-decoration: none; position: relative; }
+.poster {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 20% 10%, hsl(var(--h) 32% 24% / .95), transparent 60%),
+    radial-gradient(90% 80% at 90% 100%, hsl(calc(var(--h) + 40) 30% 16% / .95), transparent 65%),
+    var(--ink-2);
+  border: 1px solid var(--line);
+  transition: border-color .25s ease;
+}
+/* sprocket holes along top and bottom edges */
+.poster::before, .poster::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 14px;
+  background: repeating-linear-gradient(90deg, transparent 0 10px, rgba(236,230,214,.14) 10px 22px, transparent 22px 36px);
+}
+.poster::before { top: 6px; }
+.poster::after { bottom: 6px; }
+.play {
+  position: absolute; inset: 0; margin: auto; width: 76px; height: 76px; border-radius: 50%;
+  border: 2px solid var(--paper); display: grid; place-items: center; transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+.play::before { content: ""; margin-left: 5px; border-left: 20px solid var(--paper); border-top: 12px solid transparent; border-bottom: 12px solid transparent; transition: border-color .25s ease; }
+.frame:hover .poster, .frame:focus-visible .poster { border-color: var(--lamp); }
+.frame:hover .play, .frame:focus-visible .play { background: var(--lamp); border-color: var(--lamp); transform: scale(1.06); }
+.frame:hover .play::before, .frame:focus-visible .play::before { border-left-color: var(--ink); }
+.tc { position: absolute; left: 22px; bottom: 26px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; color: rgba(236,230,214,.7); }
+.ar { position: absolute; right: 22px; bottom: 26px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; color: rgba(236,230,214,.7); }
+.cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; padding-top: 14px; }
+.cap strong { font-family: var(--font-display); font-weight: 700; font-size: 24px; letter-spacing: .03em; text-transform: uppercase; line-height: 1.1; }
+.cap span { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.frame:hover .cap span { color: var(--lamp); }
+
+.feature .play { width: 104px; height: 104px; }
+.feature .play::before { border-left-width: 28px; border-top-width: 17px; border-bottom-width: 17px; margin-left: 7px; }
+.feature .cap strong { font-size: clamp(28px, 4vw, 40px); }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 44px; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.grid .play { width: 60px; height: 60px; }
+.grid .play::before { border-left-width: 16px; border-top-width: 10px; border-bottom-width: 10px; margin-left: 4px; }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 64px; }
+@media (max-width: 860px) { .about { grid-template-columns: minmax(0, 1fr); } }
+.about p { margin: 0 0 16px; max-width: 62ch; }
+.about p.lead { font-size: 21px; line-height: 1.5; }
+.kit { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.kit li { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.kit li span:first-child { font-weight: 500; }
+.kit li span:last-child { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); text-align: right; }
+
+/* contact */
+.contact { padding-block: 56px 72px; }
+.links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.links a {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+  padding: 14px 22px; border: 1px solid var(--paper); transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.links a:hover { background: var(--lamp); border-color: var(--lamp); color: var(--ink); }
+.links a.solid { background: var(--paper); color: var(--ink); }
+.links a.solid:hover { background: var(--lamp); }
+.foot { border-top: 1px solid var(--line); padding-block: 22px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <span class="mark">J. Perrine / Mauritius</span>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="band" aria-label="Introduction">
+    <div class="slate">
+      <span><b>Reel</b> 2026</span>
+      <span>24 fps</span>
+      <span>2.39:1</span>
+      <span>Edit &middot; Grade &middot; DCP</span>
+    </div>
+    <h1>John<br><span>Perrine</span></h1>
+    <p class="tag">Filmmaker and video editor in Mauritius. I cut the picture, then master it for the cinema screen. <em>Short-form to feature length.</em></p>
+  </section>
+
+  <main>
+    <section id="work" aria-labelledby="work-h">
+      <div class="head">
+        <h2 id="work-h">Selected work</h2>
+        <p>4 films &middot; opens on YouTube</p>
+      </div>
+      <div id="feature"></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="about" aria-labelledby="about-h" style="margin-top:72px">
+      <div class="head">
+        <h2 id="about-h">About</h2>
+        <p>Editor &middot; Projectionist &middot; Teacher</p>
+      </div>
+      <div class="about">
+        <div>
+          <p class="lead">I came to film through journalism, and I still cut like a reporter: the story first, the polish second.</p>
+          <p>My background is TV and radio journalism and magazine design, backed by a bachelor's degree and a diploma in media production. Today I edit freelance, run the projection side of a multi-screen cinema chain, and share what I learn on my YouTube channel.</p>
+          <p>Because I work at both ends of the pipeline, I know how a cut behaves once it is packaged as a DCP and lit up on a cinema screen.</p>
+        </div>
+        <ul class="kit" aria-label="What I do">
+          <li><span>Video editing</span><span>DaVinci Resolve</span></li>
+          <li><span>Cinema delivery</span><span>DCP creation</span></li>
+          <li><span>Short-form video</span><span>Vertical, YouTube</span></li>
+          <li><span>Filmmaking content</span><span>@johnperrine</span></li>
+          <li><span>Feature production</span><span>In development</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-h" style="margin-top:40px">
+      <div class="head" style="padding-top:32px">
+        <h2 id="contact-h">Work with me</h2>
+        <p>Edits &middot; DCP delivery &middot; Collaborations</p>
+      </div>
+      <p style="max-width:56ch;margin:0">Have a film that needs cutting, finishing or a cinema-ready package? Message me on YouTube or Instagram and tell me about it.</p>
+      <div class="links">
+        <a class="solid" href="https://www.youtube.com/@johnperrine" target="_blank" rel="noopener">YouTube channel</a>
+        <a href="https://www.instagram.com/johnfranklinperrine" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>&copy; 2026 John Perrine</span>
+    <span>Port Louis &middot; Mauritius</span>
+  </footer>
+</div>
+
+<script>
+/* Fill in a title and a short label for each film here. Leave title empty to show a generic caption. */
+var films = [
+  { id: "QO0kr5ax5NM", si: "k9yKprE_8idW9iwN", title: "", label: "Featured film", h: 36 },
+  { id: "ZA58waJCxfg", si: "sTWcSb1QhVGIU81r", title: "", label: "Film", h: 210 },
+  { id: "s1cej0cYfkg", si: "keaU9XouqwV6FCyE", title: "", label: "Film", h: 275 },
+  { id: "BrzMl88ACKw", si: "xC5brzWPU2JbnYz9", title: "", label: "Film", h: 150 }
+];
+
+function card(f, i, isFeature) {
+  var a = document.createElement("a");
+  a.className = "frame" + (isFeature ? " feature" : "");
+  a.href = "https://youtu.be/" + f.id + (f.si ? "?si=" + f.si : "");
+  a.target = "_blank";
+  a.rel = "noopener";
+  var name = f.title || (isFeature ? "Watch the featured film" : "Watch film " + (i + 1));
+  a.setAttribute("aria-label", name + " on YouTube");
+  var tc = "00:0" + i + ":00:00";
+  a.innerHTML =
+    '<div class="poster" style="--h:' + f.h + '">' +
+      '<span class="play" aria-hidden="true"></span>' +
+      '<span class="tc">TC ' + tc + '</span>' +
+      '<span class="ar">16:9</span>' +
+    '</div>' +
+    '<div class="cap"><strong></strong><span>Watch on YouTube</span></div>';
+  a.querySelector("strong").textContent = name;
+  return a;
+}
+
+document.getElementById("feature").appendChild(card(films[0], 0, true));
+var grid = document.getElementById("grid");
+for (var i = 1; i < films.length; i++) grid.appendChild(card(films[i], i, false));
+</script>
+
+</body></html>
